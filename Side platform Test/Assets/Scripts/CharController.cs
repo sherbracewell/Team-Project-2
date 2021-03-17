@@ -10,21 +10,38 @@ public class CharController : MonoBehaviour {
     //Grounded Vars
     bool grounded = true;
 
-    void FixedUpdate () {
+    public GameObject pauseMenu;
+
+    void Update () 
+    {
+        if (Input.GetKeyDown (KeyCode.P))
+         {
+            pauseMenu.SetActive(true);
+            gameObject.SetActive(false);
+            //have to add script for the lava after we make it
+         }
+    }
+
+    void FixedUpdate () 
+    {
         //Jumping
         if (Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown (KeyCode.UpArrow) || Input.GetKeyDown (KeyCode.Z) || Input.GetKeyDown (KeyCode.W)) {
-            if (grounded) {
+            if (grounded) 
+            {
                 GetComponent<Rigidbody> ().velocity = new Vector3 (GetComponent<Rigidbody> ().velocity.x, jump);
             }
         }
 
         moveVelocity = 0;
 
-        //Left Right Movement
-        if (Input.GetKey (KeyCode.LeftArrow) || Input.GetKey (KeyCode.A)) {
+        //Left Movement
+        if (Input.GetKey (KeyCode.LeftArrow) || Input.GetKey (KeyCode.A)) 
+        {
             moveVelocity = -speed;
         }
-        if (Input.GetKey (KeyCode.RightArrow) || Input.GetKey (KeyCode.D)) {
+        //Right
+        if (Input.GetKey (KeyCode.RightArrow) || Input.GetKey (KeyCode.D)) 
+        {
             moveVelocity = speed;
         }
 
@@ -32,10 +49,12 @@ public class CharController : MonoBehaviour {
 
     }
     //Check if Grounded
-    void OnTriggerEnter3D () {
+    void OnTriggerEnter3D () 
+    {
         grounded = true;
     }
-    void OnTriggerExit3D () {
+    void OnTriggerExit3D () 
+    {
         grounded = false;
     }
 }
