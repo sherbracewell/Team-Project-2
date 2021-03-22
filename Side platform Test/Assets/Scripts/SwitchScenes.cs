@@ -7,6 +7,8 @@ public class SwitchScenes : MonoBehaviour
 {
     public GameObject player;
     public GameObject pauseMenu;
+    public GameObject lava;
+    public GameObject bgmusic;
 
     public void SwitchScene(string sceneName)
     {
@@ -17,6 +19,7 @@ public class SwitchScenes : MonoBehaviour
    {
       pauseMenu.SetActive(false);
       player.SetActive(true);
-      //have to add script for the lava after we make it
+      lava.SetActive(true);
+      bgmusic.SetActive(true);
    }
 }

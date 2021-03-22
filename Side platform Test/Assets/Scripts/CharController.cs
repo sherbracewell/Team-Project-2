@@ -11,7 +11,9 @@ public class CharController : MonoBehaviour {
     bool grounded = true;
 
     public GameObject pauseMenu;
-
+    public GameObject lava;
+    public GameObject bgmusic;
+    public GameObject exit;
     private Collider[] civilianColliders;
     public Transform civilianCheck;
     public LayerMask whatIsCivilian;
@@ -39,12 +41,19 @@ public class CharController : MonoBehaviour {
         {
             pauseMenu.SetActive(true);
             gameObject.SetActive(false);
-            //have to add script for the lava after we make it
+            lava.SetActive(false);
+            bgmusic.SetActive(false);
         }
         
         if(Input.GetButtonDown("Fire3"))
         {
             SaveCivilian(civilianColliders);
+        }
+
+        if (civiliansSaved == 5)
+        {
+            exit.transform.position = new Vector3(214, 104, 2);
+            Debug.Log("YOU WIN!");
         }
     }
 
