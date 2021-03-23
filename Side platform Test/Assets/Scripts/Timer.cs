@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
     public static Timer instance { get; private set; }
     public float timeRemaining = 10;
     public bool timerIsRunning = false;
+
+    public Text timeText;  
 
     void Awake()
     {
@@ -15,7 +19,7 @@ public class Timer : MonoBehaviour
 
     private void Start()
     {
-       
+        timeText.text = "";
         timerIsRunning = false;
     }
 
@@ -26,13 +30,13 @@ public class Timer : MonoBehaviour
             if (timeRemaining > 0)
             {
                 timeRemaining -= Time.deltaTime;
-                //Display function call goes here
+                DisplayTime(timeRemaining);
             }
             else
             {
-                Debug.Log("Time has run out!");
                 timeRemaining = 0;
                 timerIsRunning = false;
+                SceneManager.LoadScene("GameOver");
             }
         }
     }
@@ -53,6 +57,6 @@ public class Timer : MonoBehaviour
         float minutes = Mathf.FloorToInt(timeToDisplay / 60); 
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
 
-        //timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 }

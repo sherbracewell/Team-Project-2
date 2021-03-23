@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CharController : MonoBehaviour {
     public float speed;
@@ -21,10 +22,12 @@ public class CharController : MonoBehaviour {
     public float civilianCheckRadius;
     private bool isTouchingCivilian = false;
     public int civiliansSaved;
+    public Text civiliansSavedText;
 
     void Start()
     {
         civiliansSaved = 0;
+        civiliansSavedText.text = "";
     }
 
     void Update () 
@@ -109,8 +112,8 @@ public class CharController : MonoBehaviour {
             for (int i = 0; i < civilianColliders.Length; ++i)
             {
                 civiliansSaved++;
-                //Destroying for now not sure if we want to do this
                 Destroy(civilianColliders[i].gameObject);
+                civiliansSavedText.text = "Civilians Saved: " + civiliansSaved;
             }
         }    
     }
