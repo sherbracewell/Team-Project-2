@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharController : MonoBehaviour {
     public float speed;
@@ -28,13 +29,16 @@ public class CharController : MonoBehaviour {
 
     void Update () 
     {   
-        if(civilianColliders.Length > 0)
+        if(civilianColliders != null)
         {
-            isTouchingCivilian = true;
-        }
-        else
-        {
-            isTouchingCivilian = false;
+            if(civilianColliders.Length > 0)
+            {
+                isTouchingCivilian = true;
+            }
+            else
+            {
+                isTouchingCivilian = false;
+            }
         }
 
         if (Input.GetKeyDown (KeyCode.P))
@@ -49,12 +53,7 @@ public class CharController : MonoBehaviour {
         {
             SaveCivilian(civilianColliders);
         }
-
-        if (civiliansSaved == 5)
-        {
-            exit.transform.position = new Vector3(214, 104, 2);
-            Debug.Log("YOU WIN!");
-        }
+        
     }
 
     void FixedUpdate () 
@@ -95,6 +94,14 @@ public class CharController : MonoBehaviour {
         grounded = false;
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("WinPlat"))
+        {
+            WinGame();
+        }
+    }
+
     private void SaveCivilian(Collider[] civilianColliders)
     {
         if(isTouchingCivilian)
@@ -106,6 +113,11 @@ public class CharController : MonoBehaviour {
                 Destroy(civilianColliders[i].gameObject);
             }
         }    
+    }
+
+    public void WinGame()
+    {
+        SceneManager.LoadScene("Win");
     }
 
     private void OnDrawGizmos()

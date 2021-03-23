@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
+    public static Timer instance { get; private set; }
     public float timeRemaining = 10;
     public bool timerIsRunning = false;
 
+    void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
-        // Starts the timer automatically
-        timerIsRunning = true;
+       
+        timerIsRunning = false;
     }
 
     void Update()
@@ -30,7 +36,16 @@ public class Timer : MonoBehaviour
             }
         }
     }
-    /* Sample display code
+
+    public void SetTimerRunning(bool inRunning)
+    {
+        timerIsRunning = inRunning;
+    }
+
+    public bool GetTimerRunning()
+    {
+        return timerIsRunning;
+    }
     void DisplayTime(float timeToDisplay)
     {
         timeToDisplay += 1;
@@ -38,6 +53,6 @@ public class Timer : MonoBehaviour
         float minutes = Mathf.FloorToInt(timeToDisplay / 60); 
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
 
-        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-    }*/
+        //timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
 }
